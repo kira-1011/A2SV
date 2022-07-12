@@ -5,42 +5,37 @@ public:
         
         make_heap(stones.begin(), stones.end());
         
-        int y,x;
+        int y, x;
         
         while (stones.size() > 1)
         {
-            y = stones[0];
+            y = 0;
             
-            if(stones.size() >= 3)
-            {
-                if(stones[1] < stones[2])
-                {
-                     x = stones[2];
-                }
-                else
-                {
-                     x = stones[1];
-                } 
-            }
+            if(stones.size() == 2)
+                x = 1;
+            
             else
-            {
-                 x = stones[1]; 
-            }
-          
+                (stones[2 * y + 1] >= stones[2 * y + 2])? x = 2 * y + 1 :  x = 2 * y + 2;
             
-
-            cout << "y : " << y << " x : " << x << endl;
+            
+            int num1 = stones[y];
+            
+            int num2 = stones[x];
+           
+            pop_heap(stones.begin(), stones.end());
+            
+            stones.pop_back();
 
             pop_heap(stones.begin(), stones.end());
+            
             stones.pop_back();
-            pop_heap(stones.begin(), stones.end()); 
-            stones.pop_back(); 
-
-            if(x != y)
+            
+            if(num1 != num2)
             {
-                stones.push_back(y - x);
+                stones.push_back(num1 - num2);
                 push_heap(stones.begin(), stones.end());
-            }   
+            }
+            
         }
         
         if(stones.size())

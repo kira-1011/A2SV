@@ -2,20 +2,38 @@ class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
         
-        int sumLeft = 0;
-        int sumRight = 0;
         
-        //8,4,1,2,5,7,2
         
-        for (int i = 0, n = nums.size(); i < n; i++)
+        
+        int n = nums.size();
+      
+        vector<int> prefixSum(n, 0);
+        
+        prefixSum[0] = nums[0];
+         
+        for(int i = 1; i < n; i++)
+             prefixSum[i] =  prefixSum[i - 1] + nums[i];
+        
+        int leftSum = 0;
+        int totalSum = prefixSum[n - 1];
+        int rightSum = totalSum - prefixSum[0];
+        
+       
+        for(int i = 0; i < n; i++)
         {
-            sumLeft = accumulate(nums.begin(), nums.begin() + i, 0);
-            sumRight = accumulate(nums.begin() + i + 1, nums.end(), 0);
-
-            if(sumLeft == sumRight)
+            if(i == 0)
+                leftSum = 0;
+            
+            else
+                leftSum = prefixSum[i - 1];
+            
+            rightSum = totalSum - prefixSum[i];
+            
+            if(leftSum == rightSum)
                 return i;
         }
         
         return -1;
+        
     }
 };

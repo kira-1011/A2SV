@@ -47,6 +47,7 @@ public:
             }
             
             i++;
+            
         }       
         
         return stoi(stackOps.back());

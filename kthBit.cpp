@@ -10,19 +10,16 @@ private:
         else
         {
             string s = BS(n - 1);
-            return s + "1" + reverse(inverse(s));
+            return s + "1" + rev(inverse(s));
         }
         
     }
     
-    string reverse(string s)
+    string rev(string s)
     {
-        string temp = "";
+        reverse(s.begin(), s.end()); 
         
-        for(int n = s.length(), i = n - 1; i >= 0; i--)
-             temp += s[i];
-        
-        return temp;
+        return s;
     }
     
     string inverse(string s)

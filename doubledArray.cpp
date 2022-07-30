@@ -1,32 +1,5 @@
 class Solution {
 
-private: 
-    int binarySearch(vector<int> &arr, int i ,int key)
-    {
-        
-        int n = arr.size(), lb = i, ub = n - 1, mid = 0;
-        
-        while(lb < ub)
-        {
-            mid = (lb + ub) / 2;
-            
-            if(arr[mid] == key)
-                return mid;
-            
-            else if(arr[mid] < key)
-                lb = mid + 1;
-            
-            else
-                ub = mid;
-        }
-        
-        if(arr[lb] == key)
-            return lb;
-        
-        return -1;
-        
-    }
-
 public:
     vector<int> findOriginalArray(vector<int>& changed) {
         

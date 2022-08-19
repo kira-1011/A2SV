@@ -2,49 +2,30 @@ class Solution {
 public:
     bool isValid(string s) {
         
-        
-        vector<char> stack;
-        
-        int i = 0;
         int n = s.length();
         
-        if(n == 1)
-            return false;
+        unordered_map<char, char> bracketPairs;
+        vector<int> stack;
         
-        stack.push_back(s[i]);
+        bracketPairs[')'] = '(';
+        bracketPairs[']'] = '[';
+        bracketPairs['}'] = '{';
         
         
-        
-        while(i < n)
+        for(int i = 0; i < n; i++)
         {
-            
-            if(s[i] == ')' || s[i] == '}' || s[i] == ']')
+            if(bracketPairs[s[i]] != '\0')
             {
-                char right =  stack.back();
-                stack.pop_back();
+                if(!stack.empty() && bracketPairs[s[i]] == stack.back())
+                    stack.pop_back();
                 
-                if(stack.size() == 0)
+                else
                     return false;
-                
-                char left =  stack.back();
-                stack.pop_back();
-                
-                if(!((left == '{' && right == '}') || (left == '[' && right == ']') || (left == '(' && right == ')' ) ))
-                    return false;
-                
             }
-             
-            i++;
-            
-            if(i >= n)
-                break;
-            stack.push_back(s[i]);
-          
+            else
+                stack.push_back(s[i]);
         }
         
-        if(stack.size() > 0)
-            return false;
-        
-        return true;
+        return (stack.empty());
     }
 };

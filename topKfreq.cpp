@@ -1,49 +1,54 @@
 class Solution {
+private:
+    static bool comp(vector<int>& a, vector<int>& b)
+    {
+        return a[1] > b[1];
+    }
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         
-        unordered_map<int, int> myMap;
-        unordered_multimap<int, int> myMap2;
+        vector<vector<int>> heap;
         
-        unordered_map<int, int> :: iterator itr;
+        unordered_map<int ,int> umap;
         
-        for(auto i : nums)
-            myMap.insert(make_pair(i, 0));
-            
-        for(auto key : nums)
-        {
-            itr = myMap.find(key);
-            itr -> second ++;
+        int n = nums.size();
+        
+        make_heap(heap.begin(), heap.end(), comp);
+        
+        for(int i = 0; i < n; i++)
+            umap[nums[i]]++;
+        
+        auto i = umap.begin();
+        n = k;
+        
+        while(n > 0)
+        { 
+            heap.push_back({i -> first, i -> second});
+            push_heap(heap.begin(), heap.end(), comp);
+            i++;
+            n--;
         }
         
-        for(auto i : myMap)
-            myMap2.insert(make_pair(i.second, i.first));
-
+        while(i != umap.end())
+        {
+           if(i -> second > heap.front()[1])
+            {
+                pop_heap(heap.begin(), heap.end(), comp);
+                heap.pop_back();
+                heap.push_back({i -> first, i -> second});
+                push_heap(heap.begin(), heap.end(), comp);
+            }
+            
+            i++;
+        }
         
-        vector<int> freq;
-        
-        for(auto i : myMap)
-            freq.push_back(i.second);
-        
-        
-        
-        make_heap(freq.begin(), freq.end());
-        
-        vector<int> answer;
+        vector<int> frequentElements;
         
         for(int i = 0; i < k; i++)
-        {
-            itr = myMap2.find(freq.front());
-            
-            answer.push_back(itr -> second);
-            
-            myMap2.erase(itr);
-            
-            pop_heap(freq.begin(), freq.end());
-            
-            freq.pop_back();
-        }
+           frequentElements.push_back(heap[i][0]);
         
-        return answer;
+ 
+
+        return frequentElements;
     }
 };

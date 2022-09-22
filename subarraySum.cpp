@@ -1,6 +1,4 @@
-class Solution {
-public:
-    int subarraySum(vector<int>& nums, int k) {
+ int subarraySum(vector<int>& nums, int k) {
         
         int n = nums.size();
         
@@ -17,7 +15,7 @@ public:
 
         unordered_map<int, int> hashPrefixSum;
         
-        unordered_map<int, int> :: iterator itr;
+        hashPrefixSum[0] = 1;
 
         int subArray = 0;
 
@@ -25,14 +23,10 @@ public:
         
         for(int i = 0; i < n; i++)
         {
-            sum = sum + nums[i];
-            
-            if(sum == k)
-                subArray++;
+            sum += nums[i];
             
             if(hashPrefixSum.find(sum - k) != hashPrefixSum.end())
                     subArray += hashPrefixSum[sum - k];
-            
             
             hashPrefixSum[sum]++;
         }
@@ -40,4 +34,3 @@ public:
         return subArray;
        
     }
-};

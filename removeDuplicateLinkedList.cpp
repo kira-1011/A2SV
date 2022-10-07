@@ -41,13 +41,5 @@ public:
         }
         
         return head2;
-            
-            
-        
-        
-        
-        
-        
-        
     }
 };

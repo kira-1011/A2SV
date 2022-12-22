@@ -10,12 +10,9 @@ class Solution:
             loser = players[1]
             winner = players[0]
 
-            count = lose_count.get(loser, 0) + 1
-            lose_count[loser] = count
+            lose_count[loser] = lose_count.get(loser, 0) + 1
+            lose_count[winner] = lose_count.get(winner, 0)
 
-            count = lose_count.get(winner, 0)
-            lose_count[winner] = count
-        
         # Check players that have not lost any matches or lost exactly one match
         for player in lose_count:
             count = lose_count[player]

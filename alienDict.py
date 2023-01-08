@@ -11,7 +11,7 @@ class Solution:
 
         # compare adjacent strings based on the given order
         for word_idx in range(1, words_len):
-
+            
             word = words[word_idx]
             prev_word = words[word_idx - 1]
             word_len = len(word)

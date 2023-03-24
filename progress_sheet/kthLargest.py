@@ -11,8 +11,10 @@ class Solution:
         right = size - 1
 
         while pivot != size - k:
-            
+      
             write = left + 1
+            pivot = (left + right) // 2
+            nums[pivot], nums[left] = nums[left], nums[pivot]
             pivot = left
 
             for read in range(left + 1, right + 1):

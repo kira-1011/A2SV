@@ -12,16 +12,15 @@ class Solution:
     def __init__(self):
 
         self.total = 0
-        self.importance_map = 0
         self.graph = None
 
     def dfs(self, employee, visited):
 
-        self.total += self.importance_map[employee]
+        self.total += self.graph[employee].importance
 
         visited.add(employee)
 
-        for subordinate in self.graph[employee]:
+        for subordinate in self.graph[employee].subordinates:
 
             if subordinate not in visited:
                 self.dfs(subordinate, visited)
@@ -33,11 +32,9 @@ class Solution:
 
         # build employee relationship graph using adjacency list
         for employee in employees:
-            graph[employee.id] = employee.subordinates
-            importance_map[employee.id] = employee.importance
+            graph[employee.id] = employee
         
         self.graph = graph
-        self.importance_map = importance_map
         
         self.dfs(id, set())
 

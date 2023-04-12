@@ -4,19 +4,21 @@ class Solution:
         self.group_map = defaultdict(int)
 
     def dfs(self, graph, person, group):
+
+        if person in self.group_map:
+
+            if group != self.group_map[person]:
+                return False
+                
+            return True
         
         self.group_map[person] = group
 
         for neighbour in graph[person]:
-
-            if neighbour not in self.group_map:
                 
-                is_possible = self.dfs(graph, neighbour, -group)
+            is_possible = self.dfs(graph, neighbour, -group)
 
-                if not is_possible:
-                    return False
-            
-            elif group == self.group_map[neighbour]:
+            if not is_possible:
                 return False
         
         return True
